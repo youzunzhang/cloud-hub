@@ -33,8 +33,17 @@
 | 功能 | 用途 | 配置位置 | 验证方式 |
 |---|---|---|---|
 | **GitHub Pages** | 托管 `site/` 静态交付物 | `.github/workflows/pages.yml` + Settings → Pages = GitHub Actions | 访问 `https://youzunzhang.github.io/cloud-hub/` |
+
 | **Releases** | tag 触发自动发布，附 wheel/sdist/site.zip | `.github/workflows/release.yml`（用运行器自带 `gh` CLI） | 仓库 Releases 页 |
 | **自动发布说明** | `gh release create --generate-notes` | 同上 | Release 正文自动生成变更列表 |
+
+> **Pages 首次启用必须人工点一次（2026-10-25 实测确认）**
+> `actions/configure-pages@v5` 的 `enablement` 输入在官方 `action.yml` 里写明：
+> *"This option requires a token other than `GITHUB_TOKEN` to be provided."*
+> —— 用工作流自带的 `GITHUB_TOKEN` **一定失败**。因此首次开通只能由仓库管理员在
+> **Settings → Pages → Build and deployment → Source** 选 **GitHub Actions**，
+> 之后工作流每次推送即可自动发布。
+
 
 ## 四、协作与治理
 

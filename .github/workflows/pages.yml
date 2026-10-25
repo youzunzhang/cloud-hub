@@ -2,8 +2,13 @@ name: Deploy Pages
 
 # 用途：把 site/ 目录发布到 GitHub Pages
 # 使用的 GitHub 功能：Pages（artifact 型部署）、Environments、OIDC（id-token）
-# 前置条件：仓库 Settings → Pages → Source 必须选 "GitHub Actions"
-#          私有仓库在 Free 套餐下不支持 Pages，需 Pro/Team 或改为公开仓库
+#
+# ⚠️ 前置条件（GitHub 硬约束，无法用工作流绕开）：
+#   必须在仓库 Settings → Pages → Build and deployment → Source 选 “GitHub Actions”。
+#   官方说明：configure-pages 的 enablement 输入「requires a token other than GITHUB_TOKEN」，
+#   即用默认 GITHUB_TOKEN 无法自动开通 Pages，必须由仓库管理员点一次。
+#   开通后再推一次 site/ 或在本工作流点 Run workflow 即可发布。
+#   另：Free 账号的私有仓库不支持 Pages，需 Pro/Team 或改公开仓库。
 
 on:
   push:
@@ -31,9 +36,8 @@ jobs:
 
       - name: 配置 Pages
         uses: actions/configure-pages@v5
-        with:
-          # 若仓库尚未启用 Pages，自动启用并把发布源设为 GitHub Actions，免去手动设置
-          enablement: true
+        # 注意：这里刻意不加 enablement: true —— 该选项要求提供非 GITHUB_TOKEN 的凭据，
+        # 用默认 token 一定失败。Pages 的首次开通请在仓库设置页完成（见文件头注释）。
 
       - name: 上传 Pages 产物
         uses: actions/upload-pages-artifact@v3
