@@ -1,0 +1,9 @@
+# 使用的 GitHub 功能：CODEOWNERS —— 自动指派评审人
+# 语法：<路径模式>  <@用户或@组织/团队>
+# 说明：单人仓库下主要用于「PR 自动请求自己评审」与未来扩展
+
+*                       @youzunzhang
+
+/.github/               @youzunzhang
+/src/                   @youzunzhang
+/site/                  @youzunzhang

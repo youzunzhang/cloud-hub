@@ -1,0 +1,30 @@
+version: 2
+
+# 使用的 GitHub 功能：Dependabot（版本更新 PR + 安全告警自动修复）
+updates:
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "21:00" # UTC → 北京 05:00
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "build"
+      include: scope
+    groups:
+      dev-dependencies:
+        patterns: ["ruff", "pytest", "build", "pre-commit"]
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "ci"
+      include: scope
+    groups:
+      actions:
+        patterns: ["*"]

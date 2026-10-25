@@ -1,0 +1,5 @@
+# 开发依赖的锁定入口（CI 与本地共用）
+# 权威定义在 pyproject.toml 的 [project.optional-dependencies].dev 中
+# 安装： pip install -e ".[dev]"
+# 或：   pip install -r requirements-dev.txt
+-e .[dev]

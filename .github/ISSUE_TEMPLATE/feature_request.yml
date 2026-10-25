@@ -1,0 +1,39 @@
+name: 需求建议
+description: 提出新功能或改进
+labels: ["type: feature"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 要解决什么问题
+      description: 描述场景与痛点，而不是直接给方案
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议的做法
+      description: 可以只写方向；若涉及新的 GitHub 功能请注明
+    validations:
+      required: false
+  - type: dropdown
+    id: surface
+    attributes:
+      label: 涉及的层面
+      multiple: true
+      options:
+        - 任务框架（registry / cli）
+        - CI 流水线
+        - 定时任务
+        - Pages 交付物
+        - Release 发布
+        - 文档与规范
+    validations:
+      required: false
+  - type: textarea
+    id: alternative
+    attributes:
+      label: 备选方案
+      description: 考虑过但没选的做法，以及放弃原因
+    validations:
+      required: false

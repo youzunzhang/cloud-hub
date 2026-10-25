@@ -1,0 +1,49 @@
+name: Deploy Pages
+
+# 用途：把 site/ 目录发布到 GitHub Pages
+# 使用的 GitHub 功能：Pages（artifact 型部署）、Environments、OIDC（id-token）
+# 前置条件：仓库 Settings → Pages → Source 必须选 "GitHub Actions"
+#          私有仓库在 Free 套餐下不支持 Pages，需 Pro/Team 或改为公开仓库
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    name: 打包站点
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 配置 Pages
+        uses: actions/configure-pages@v5
+
+      - name: 上传 Pages 产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    name: 部署
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

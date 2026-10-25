@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GitHub Actions 文档
+    url: https://docs.github.com/actions
+    about: 工作流语法、权限、Secrets 的官方说明
+  - name: GitHub Pages 文档
+    url: https://docs.github.com/pages
+    about: 发布源、自定义域名、私有仓库限制

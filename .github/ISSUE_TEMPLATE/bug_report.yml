@@ -1,0 +1,51 @@
+name: 缺陷报告
+description: 报告一个可复现的问题
+labels: ["type: bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈。请尽量填写可复现的最小信息，不要粘贴密钥、Token、个人隐私内容。
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 现象
+      description: 实际发生了什么，与期望的差别
+      placeholder: 运行 `cloudhub run xxx` 时退出码为 1，日志显示……
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤
+      placeholder: |
+        1. 执行 `...`
+        2. 看到 `...`
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: 发生位置
+      options:
+        - 本地命令行
+        - GitHub Actions
+        - GitHub Pages
+        - GitHub Release
+        - 其他
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: 版本 / 运行环境
+      placeholder: cloudhub 0.1.0 / Python 3.13.14 / Windows 11
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: 相关日志
+      render: shell
+    validations:
+      required: false

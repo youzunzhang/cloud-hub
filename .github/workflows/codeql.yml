@@ -1,0 +1,33 @@
+name: CodeQL
+
+# 用途：Python 代码静态安全扫描，结果进 Security → Code scanning
+# 使用的 GitHub 功能：Code scanning（CodeQL）、Actions、security-events 权限
+# 注意：私有仓库使用 CodeQL 需要 GitHub Advanced Security（Free 账号不支持）
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 20 * * 0" # 每周一 北京 04:00
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  analyze:
+    name: analyze (python)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 初始化 CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: python
+
+      - name: 执行分析
+        uses: github/codeql-action/analyze@v3
