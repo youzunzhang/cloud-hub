@@ -199,7 +199,9 @@ def protect_branch(token: str, owner: str, repo: str, proxy: str | None) -> None
     else:
         print(f"[WARN] 分支保护未开启（HTTP {status}）：{_msg(resp)}")
         print(
-            "       经典 PAT 需 repo 勾选 admin:repo_hook 之上的 repo 全权；细粒度 PAT 需 Administration: write"
+            "       ① 权限：经典 PAT 需 repo 全权；细粒度 PAT 需 Administration: write\n"
+            "       ② 计划：Free 账号的私有仓库不支持分支保护（需 Pro/Team/Enterprise）\n"
+            "       ③ 替代：改用 pre-commit 本地钩子 + CI 失败即拒绝合并"
         )
 
 

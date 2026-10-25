@@ -97,7 +97,9 @@ class MyTask(Task):
 
 ## 待办与已知限制
 
-- 仓库为**私有**时，GitHub Pages 需要 Pro/Team 套餐；Free 账号只能对公开仓库开 Pages。
+- 仓库为**私有**时（个人 Free 账号），以下三项**不可用**，需改公开或升级 Pro：
+  GitHub Pages、分支保护/Rulesets、CodeQL 代码扫描。替代方案见 `docs/03` 第五节。
+- 建仓操作（小白版，含每步入口与预期结果）：`docs/04-建仓操作手册.html`。
 - `github.com` 网页端口在本网络不通，**只能走 SSH**（`ssh.github.com:443`）与 REST API（`api.github.com`）。
 - Release 附件的下载域名（`objects.githubusercontent.com`）在本网络不可达，下载需走 API 或代理。
 - `LICENSE` 尚未添加，视仓库公开/私有决定。

@@ -2,7 +2,13 @@ name: CodeQL
 
 # 用途：Python 代码静态安全扫描，结果进 Security → Code scanning
 # 使用的 GitHub 功能：Code scanning（CodeQL）、Actions、security-events 权限
-# 注意：私有仓库使用 CodeQL 需要 GitHub Advanced Security（Free 账号不支持）
+#
+# ⚠️ 计划限制（2026-10-25 核对官方文档 Code scanning → Who can use this feature）：
+#   代码扫描仅对「公开仓库」或「已购 GitHub Code Security 的组织仓库」可用。
+#   → 个人账号 + 私有仓库时本工作流会失败/无结果，请按下面二选一处理：
+#     ① 仓库改公开（最省事）；
+#     ② 删除本文件，改在 ci.yml 里跑 ruff + pip-audit（免费，无需 GHAS）。
+
 
 on:
   push:
