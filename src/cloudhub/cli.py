@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import argparse
+import contextlib
 import json
 import sys
 from collections.abc import Sequence
@@ -19,6 +20,24 @@ from pathlib import Path
 from cloudhub import __version__
 from cloudhub.config import Settings
 from cloudhub.registry import all_tasks, get_task, load_builtin_tasks
+
+
+def _force_utf8_streams() -> None:
+    """强制 stdout/stderr 用 UTF-8。
+
+    Windows 上标准输出被重定向（CI、`> file`、管道）时，Python 默认使用系统码表
+    （英文系统 cp1252、中文系统 cp936），一旦打印中文就会抛
+    ``UnicodeEncodeError: 'charmap' codec can't encode ...`` 并以退出码 1 结束。
+    Linux/macOS 默认就是 UTF-8，所以这个问题只在 Windows 上暴露。
+    """
+
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is None:
+            continue
+        # 流已被替换或不可重配置时静默跳过
+        with contextlib.suppress(ValueError, OSError):
+            reconfigure(encoding="utf-8", errors="replace")
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -94,6 +113,7 @@ def _cmd_run(task_name: str, as_json: bool, dry_run: bool) -> int:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    _force_utf8_streams()
     parser = _build_parser()
     args = parser.parse_args(argv)
     load_builtin_tasks()

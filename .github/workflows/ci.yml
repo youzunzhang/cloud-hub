@@ -21,6 +21,9 @@ permissions:
 env:
   PYTHONUNBUFFERED: "1"
   PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  # Windows 运行器默认 en-US 码表，Python 输出被重定向时打印中文会 UnicodeEncodeError。
+  # 显式声明 UTF-8，与 cli.py 内的流重配置形成双保险。
+  PYTHONIOENCODING: "utf-8"
 
 jobs:
   lint:
