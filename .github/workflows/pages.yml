@@ -32,15 +32,15 @@ jobs:
     name: 打包站点
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: 配置 Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
         # 注意：这里刻意不加 enablement: true —— 该选项要求提供非 GITHUB_TOKEN 的凭据，
         # 用默认 token 一定失败。Pages 的首次开通请在仓库设置页完成（见文件头注释）。
 
       - name: 上传 Pages 产物
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: site
 
@@ -53,4 +53,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
